@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal/models/meal.dart';
 import 'package:meal/screens/categories.dart';
 import 'package:meal/screens/meals.dart';
 
@@ -22,13 +23,25 @@ class _TabScreenState extends State<TabScreen> {
     });
   }
 
+  final List<Meal> _favouriteMeals = [];
+
+  void _toogleMealFavouriteStatus(Meal meal){
+    final isExiting = _favouriteMeals.contains(meal);
+    if(isExiting){
+      _favouriteMeals.remove(meal);
+    }else{
+      _favouriteMeals.add(meal);
+    }
+    print(_favouriteMeals);
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget activePage = const Categories();
+    Widget activePage = Categories(onToogleFavourite: _toogleMealFavouriteStatus,);
     String activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
-      activePage = const MealScreen(meals: []);
+      activePage = MealScreen(meals: [],onToogleFavourite: _toogleMealFavouriteStatus,);
       activePageTitle = 'Your Favourites';
     }
 

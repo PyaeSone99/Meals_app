@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:meal/models/meal.dart';
 
 class MealDetailsScreen extends StatelessWidget {
-  const MealDetailsScreen ({super.key,required this.mealDetail});
+  const MealDetailsScreen ({super.key,required this.mealDetail,required this.onToogleFavourite});
 
   final Meal mealDetail;
+  final void Function(Meal meal) onToogleFavourite;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,14 @@ class MealDetailsScreen extends StatelessWidget {
         title: Text(
           mealDetail.title
         ),
+        actions: [
+          IconButton(
+            onPressed: (){
+              onToogleFavourite;
+            }, 
+            icon: const Icon(Icons.star)
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
