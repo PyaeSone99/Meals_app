@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meal/data/dummy_data.dart';
 import 'package:meal/models/meal.dart';
+import 'package:meal/screens/meal_detail.dart';
 import 'package:meal/widgets/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -17,6 +19,13 @@ class MealItems extends StatelessWidget {
     return meal.affordability.name[0].toUpperCase() + meal.affordability.name.substring(1);
   }
 
+  void _selectedMeal(BuildContext context, Meal meal) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MealDetailsScreen(mealDetail: meal)));
+  }
+
   @override
   Widget build(context) {
     return Card(
@@ -25,7 +34,7 @@ class MealItems extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: (){},
+        onTap: (){_selectedMeal(context,meal);},
         child: Stack(
           children: [
             FadeInImage(
