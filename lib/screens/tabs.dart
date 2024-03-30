@@ -25,14 +25,29 @@ class _TabScreenState extends State<TabScreen> {
 
   final List<Meal> _favouriteMeals = [];
 
+  void _showInfoMessage(String message){
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      )
+    );
+  }
+
   void _toogleMealFavouriteStatus(Meal meal){
     final isExiting = _favouriteMeals.contains(meal);
-    if(isExiting){
-      _favouriteMeals.remove(meal);
+     if(isExiting){
+      setState(() {
+        _favouriteMeals.remove(meal);
+        _showInfoMessage('Meal is no longer favourite');
+      });
+      
     }else{
-      _favouriteMeals.add(meal);
+      setState(() {
+         _favouriteMeals.add(meal);
+         _showInfoMessage('Marked as favourite');
+      });
     }
-    print(_favouriteMeals);
   }
 
   @override
@@ -41,7 +56,7 @@ class _TabScreenState extends State<TabScreen> {
     String activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
-      activePage = MealScreen(meals: [],onToogleFavourite: _toogleMealFavouriteStatus,);
+      activePage = MealScreen(meals: _favouriteMeals,onToogleFavourite: _toogleMealFavouriteStatus,);
       activePageTitle = 'Your Favourites';
     }
 
