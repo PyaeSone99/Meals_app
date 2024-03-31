@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:meal/data/dummy_data.dart';
 import 'package:meal/models/meal.dart';
 import 'package:meal/screens/categories.dart';
 import 'package:meal/screens/filter.dart';
 import 'package:meal/screens/meals.dart';
 import 'package:meal/widgets/main_drawer.dart';
+
+const kInitialFilters = {
+    Filter.GlutenFree : false,
+    Filter.LactoseFree : false,
+    Filter.Vegetarian : false,
+    Filter.Vegan : false
+  };
 
 class TabScreen extends StatefulWidget {
   const TabScreen ({super.key});
@@ -26,6 +34,7 @@ class _TabScreenState extends State<TabScreen> {
   }
 
   final List<Meal> _favouriteMeals = [];
+  Map<Filter,bool> _selectedFilters = kInitialFilters;
 
   void _showInfoMessage(String message){
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -57,16 +66,33 @@ class _TabScreenState extends State<TabScreen> {
     if (identifier == 'filters') {
       final result = await Navigator.of(context).push<Map<Filter,bool>>(
         MaterialPageRoute(
-          builder: (context) => const FiltersScreen(),
+          builder: (context) => FiltersScreen(currentFilters: _selectedFilters,),
         )
       );
-      print(result);
+      setState(() {
+        _selectedFilters = result ?? kInitialFilters;  
+      });
      }
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = Categories(onToogleFavourite: _toogleMealFavouriteStatus,);
+    final availableMeals = dummyMeals.where((meal) {
+      if (_selectedFilters[Filter.GlutenFree]! && !meal.isGlutenFree){
+       return false; 
+      }
+      if (_selectedFilters[Filter.LactoseFree]! && !meal.isLactoseFree){
+       return false; 
+      }
+      if (_selectedFilters[Filter.Vegetarian]! && !meal.isVegetarian){
+       return false; 
+      }
+      if (_selectedFilters[Filter.Vegan]! && !meal.isVegan){
+       return false; 
+      }
+      return true;
+    }).toList();
+    Widget activePage = Categories(onToogleFavourite: _toogleMealFavouriteStatus,availableMeal: availableMeals,);
     String activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
