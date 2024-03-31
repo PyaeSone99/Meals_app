@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+// import 'package:meal/screens/tabs.dart';
+// import 'package:meal/widgets/main_drawer.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
 
   @override
   State<FiltersScreen> createState (){
-    return _filterScreenState();
+    return _FilterScreenState();
   }
 }
 
-class _filterScreenState extends State<FiltersScreen> {
+class _FilterScreenState extends State<FiltersScreen> {
 
   var _gultenFreeFilterSet = false;
 
@@ -21,6 +23,16 @@ class _filterScreenState extends State<FiltersScreen> {
           'Your Filter'
         ),
       ),
+      // drawer: MainDrawer(onSelectScream: (identifier){
+      //   Navigator.of(context).pop();
+      //   if(identifier == 'meals'){
+      //     Navigator.of(context).pushReplacement(
+      //       MaterialPageRoute(
+      //         builder: (context) => const TabScreen()
+      //       )
+      //     );
+      //   }
+      // }),
       body: Column(
         children: [
           SwitchListTile(
