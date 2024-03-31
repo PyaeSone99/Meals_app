@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
   
-  const MainDrawer({super.key});
+  const MainDrawer({super.key,required this.onSelectScream});
+
+  final void Function(String identifier) onSelectScream;
 
   @override
   Widget build(context) {
@@ -47,29 +49,22 @@ class MainDrawer extends StatelessWidget {
                     fontSize: 24
                   ),
              ),
-             onTap: (){} ,
+             onTap: (){
+              onSelectScream('meals');
+             } ,
           ),
           ListTile(
             leading: Icon(Icons.settings,size: 26,color: Theme.of(context).colorScheme.onBackground,),
              title: Text(
-              'Meals',
+              'Filters',
               style:Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 24
                   ),
              ),
-             onTap: (){} ,
-          ),
-          ListTile(
-            leading: Icon(Icons.restaurant,size: 26,color: Theme.of(context).colorScheme.onBackground,),
-             title: Text(
-              'Meals',
-              style:Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontSize: 24
-                  ),
-             ),
-             onTap: (){} ,
+             onTap: (){
+              onSelectScream('filters');
+             } ,
           ),
         ],
       ),

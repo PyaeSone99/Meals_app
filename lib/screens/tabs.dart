@@ -51,6 +51,14 @@ class _TabScreenState extends State<TabScreen> {
     }
   }
 
+  void _setScreen(String identifier){
+    if (identifier == 'filters') {
+      
+    }else {
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget activePage = Categories(onToogleFavourite: _toogleMealFavouriteStatus,);
@@ -67,7 +75,7 @@ class _TabScreenState extends State<TabScreen> {
           activePageTitle
         ),
       ),
-      drawer: const MainDrawer(),
+      drawer: MainDrawer(onSelectScream: _setScreen,),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPageIndex,
