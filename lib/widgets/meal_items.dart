@@ -6,12 +6,9 @@ import 'package:transparent_image/transparent_image.dart';
 
 class MealItems extends StatelessWidget {
 
-  const MealItems ({super.key,required this.meal,required this.onToogleFavourite});
+  const MealItems ({super.key,required this.meal});
 
   final Meal meal;
-
-  final void Function(Meal meal) onToogleFavourite;
-
 
   String get complexityText {
     return meal.complexity.name[0].toUpperCase() + meal.complexity.name.substring(1);
@@ -25,7 +22,7 @@ class MealItems extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => MealDetailsScreen(mealDetail: meal,onToogleFavourite: onToogleFavourite,)));
+            builder: (context) => MealDetailsScreen(mealDetail: meal)));
   }
 
   @override
